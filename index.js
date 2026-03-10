@@ -114,3 +114,191 @@ function gameObject() {
         },
     };
 }
+
+ function bigShoeRebounds() {
+    const game = gameObject()
+    
+    let biggestShoeSize = 0
+    let rebounds = 0
+
+    for (let team in game) {
+      const players = game[team].players
+
+      for (let player in players) {
+        if (players[player].shoe > biggestShoeSize) {
+          biggestShoeSize = players[player].shoe
+          rebounds = players[player].rebounds
+        }
+      }
+    }
+
+    return rebounds
+  }
+
+  function numPointsScored(playerName) {
+  const game = gameObject()
+
+  for (let team in game) {
+    const players = game[team].players
+
+    for (let player in players) {
+      if (player === playerName) {
+        return players[player].points
+      }
+    }
+  }
+ }
+
+  function shoeSize(playerName) {
+    const game = gameObject()
+
+    for (let team in game) {
+      const players = game[team].players
+
+      for (let player in players) {
+        if (player === playerName) {
+          return players[player].shoe
+        }
+      }
+    }
+  }
+
+  function teamColors(teamName) {
+    const game = gameObject()
+
+    for (let team in game) {
+      if (game[team].teamName === teamName) {
+        return game[team].colors
+      }
+    }
+  }
+
+  function teamNames() {
+    const game = gameObject()
+    
+    return [game.home.teamName, game.away.teamName  ]
+  }
+
+  function playerNumbers(teamName) {
+    const game = gameObject()
+
+    for (let team in game) {
+      if (game[team].teamName === teamName) {
+        const players = game[team].players
+        const numbers = []
+
+        for (let player in players) {
+          numbers.push(players[player].number)
+        }
+
+        return numbers
+      }
+    }
+  }
+
+  function playerStats(playerName) {
+    const game = gameObject()
+
+    for (let team in game) {
+      const players = game[team].players
+
+      for (let player in players) {
+        if (player === playerName) {
+          return players[player]
+        }
+      }
+    }
+  }
+
+  function mostPointsScored() {
+    const game = gameObject()
+    let mostPoints = 0
+    let topPlayer = ""
+
+    for (let team in game) {
+      const players = game[team].players
+
+      for (let player in players) {
+        if (players[player].points > mostPoints) {
+          mostPoints = players[player].points
+          topPlayer = player
+        }
+      }
+    }
+    return topPlayer
+  }
+
+  function winningTeam() {
+    const game = gameObject()
+    let homePoints = 0
+    let awayPoints = 0
+
+    for (let player in game.home.players) {
+      homePoints += game.home.players[player].points
+    }
+
+    for (let player in game.away.players) {
+      awayPoints += game.away.players[player].points
+    }
+
+    if (homePoints > awayPoints) {
+      return game.home.teamName
+    } else {
+      return game.away.teamName
+    }
+  }
+
+  function playerWithLongestName() {
+    const game = gameObject()
+    let longestName = ""
+
+    for (let team in game) {
+      const players = game[team].players
+
+      for (let player in players) {
+        if (player.length > longestName.length) {
+          longestName = player
+        }
+      }
+    }
+    return longestName
+  }
+
+  function doesLongNameStealATon() {
+    const game = gameObject()
+
+    let longestName = ""
+    let mostSteals = 0
+    let playerMostSteals = ""
+
+    for (let team in game) {
+      const players = game[team].players
+
+      for (let player in players) {
+        if (player.length > longestName.length) {
+          longestName = player
+        }
+        if (players[player].steals > mostSteals) {
+          mostSteals = players[player].steals
+          playerMostSteals = player
+        }
+      }
+    }
+
+    return longestName === playerMostSteals
+  }
+
+  module.exports = {
+    gameObject,
+    numPointsScored,
+    shoeSize,
+    teamColors,
+    teamNames,
+    playerNumbers,
+    playerStats,
+    bigShoeRebounds,
+    mostPointsScored,
+    winningTeam,
+    playerWithLongestName,
+    doesLongNameStealATon
+  }
